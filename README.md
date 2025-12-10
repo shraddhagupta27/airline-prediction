@@ -1,28 +1,43 @@
 # airline-prediction
 
-# Flight Delay Prediction Before Departure (4M+ Records)
+# Deciphering Airline Performance
+Built a machine learning pipeline using 4M+ U.S. flight records to predict pre-departure delays and enable proactive operational alerts.
 
-## Project Overview
-This project focuses on building a machine learning solution to predict flight delays before departure using over 4 million historical flight records from the U.S. Bureau of Transportation Statistics (BTS). The primary goal is to help airlines and airports anticipate delays proactively, minimizing disruptions and improving passenger communication.
+## Overview
+This project develops an end-to-end machine learning workflow to predict whether a scheduled commercial flight will be delayed before departure. Using large-scale U.S. Bureau of Transportation Statistics (BTS) data, the pipeline includes data preparation, exploratory data analysis (EDA), feature engineering, class balancing, hyperparameter tuning, and generating a tuned XGBoost model capable of identifying high-risk flights ahead of time.
+
+## Problem Statement
+Airlines and airports face costly operational disruptions caused by flight delays. Identifying delay-prone flights before departure allows ground crews, dispatch, and customer service teams to mitigate downstream issues such as gate changes, crew conflicts, and missed connections. This project focuses on predicting pre-departure delays using historical flight, schedule, and weather-related data to support more proactive decision-making.
+
+## Dataset
+
+Source: U.S. Bureau of Transportation Statistics (BTS)
+Data volume: 4,000,000+ rows
+Includes: Flight schedule data, Carrier identifiers, Origin & destination airports, Distance, airtime, cancellations, diversion flags
+
+## Tools & Technologies
+- Python: pandas, numpy, matplotlib, seaborn
+- Machine Learning: scikit-learn, XGBoost, Random Forest
+- Optimization: Optuna (hyperparameter tuning)
+- Data Processing: class balancing, missing-value handling, encoding
+
+## Methods
+- Data ingestion & cleaning (handling missing values, filtering out corrupted rows)
+- Exploratory Data Analysis (EDA) to identify delay patterns & correlations
+- Feature engineering: Time-based features (hour, day, month, season), Historical delay tendencies
+- Class imbalance handling using under-sampling / SMOTE
+- Model training using Decision Tree, Random Forest, and XGBoost
+- Hyperparameter tuning with Optuna to optimize recall/F1 on minority class
+- Model evaluation using Accuracy, Recall, Precision, F1-score, Confusion Matrix
+
+## Key Insights
+
+- Delay occurrences vary heavily by time of day, with evening flights showing higher risk.
+- After optimization, XGBoost significantly outperformed traditional models.
+- Final model achieved ~62% Recall and ~50% F1-Score on the delay class—substantial uplift vs. baseline.
 
 
-## Key Highlights
-
-- Objective: Predict whether a flight will be delayed (15+ mins) before departure, using scheduled metadata.
-- Data Prep: Extensive data cleaning, null handling, time-based feature engineering (hour, weekday, route, etc.)
-- Imbalance Handling: Class imbalance (71% no-delay) addressed via `class_weight='balanced'` and `BalancedRandomForestClassifier`
-- Modeling:
-  - Benchmarked 4+ models: Decision Tree, Random Forest, Balanced RF, XGBoost
-  - Hyperparameter tuning via Optuna
-  - Final model: Tuned XGBoost → Recall: 62% | F1: 50% | PR-AUC: 0.48
-- Evaluation Metrics: Chosen to emphasize F1 and PR-AUC, critical for real-world alerting systems
 
 
-## Why This Matters
-Delays cost airlines billions each year and frustrate passengers. This model helps surface high-risk flights before takeoff, giving operations teams time to act — from resource allocation to proactive alerts.
-
-##  Key Learnings
-- How to design ML systems under operational constraints (no real-time weather/ATC input)
-- Using **Optuna** for efficient hyperparameter search over complex model spaces
 
 
